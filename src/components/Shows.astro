@@ -7,7 +7,7 @@ import { toLocalShowDate } from '../lib/showDate';
 
 const yamlPath = path.join(process.cwd(), 'src/data/shows.yaml');
 const raw = fs.readFileSync(yamlPath, 'utf-8');
-const allShows = yaml.load(raw) as Array<{ date: string | Date; time: string; venue: string; location: string; url?: string }>;
+const allShows = yaml.load(raw) as Array<{ date: string | Date; time: string; name?: string; venue: string; location: string; url?: string }>;
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -15,24 +15,54 @@ today.setHours(0, 0, 0, 0);
 const upcomingShows = allShows
   .filter(show => toLocalShowDate(show.date) >= today)
   .sort((a, b) => toLocalShowDate(a.date).getTime() - toLocalShowDate(b.date).getTime());
+
+const recentShows = allShows
+  .filter(show => toLocalShowDate(show.date) < today)
+  .sort((a, b) => toLocalShowDate(b.date).getTime() - toLocalShowDate(a.date).getTime());
 ---
 
 <section id="shows" class="shows-section">
   <div class="container">
-    <h2 class="section-heading">Upcoming Shows</h2>
-    {upcomingShows.length > 0 ? (
-      <div class="shows-list">
-        {upcomingShows.map(show => (
-          <ShowCard {...show} />
-        ))}
+    <h2 class="section-heading">Shows</h2>
+
+    <div class="shows-group">
+      <h3 class="shows-subheading">Upcoming</h3>
+      {upcomingShows.length > 0 ? (
+        <div class="shows-list">
+          {upcomingShows.map(show => (
+            <ShowCard {...show} />
+          ))}
+        </div>
+      ) : (
+        <p class="no-shows">No shows scheduled yet — check back soon!</p>
+      )}
+    </div>
+
+    {recentShows.length > 0 && (
+      <div class="shows-group">
+        <h3 class="shows-subheading">Recent</h3>
+        <div class="shows-list">
+          {recentShows.map(show => (
+            <ShowCard {...show} past />
+          ))}
+        </div>
       </div>
-    ) : (
-      <p class="no-shows">No shows scheduled yet — check back soon!</p>
     )}
   </div>
 </section>
 
 <style>
+  .shows-group + .shows-group {
+    margin-top: 3rem;
+  }
+
+  .shows-subheading {
+    font-size: 1.35rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    color: var(--color-text);
+  }
+
   .shows-list {
     display: flex;
     flex-direction: column;
