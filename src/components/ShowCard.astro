@@ -1,4 +1,6 @@
 ---
+import { toLocalShowDate } from '../lib/showDate';
+
 interface Props {
   date: string | Date;
   time: string;
@@ -9,8 +11,7 @@ interface Props {
 
 const { date, time, venue, location, url } = Astro.props;
 
-const dateObj = date instanceof Date ? date : new Date(date + 'T00:00:00');
-const formatted = dateObj.toLocaleDateString('en-US', {
+const formatted = toLocalShowDate(date).toLocaleDateString('en-US', {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
