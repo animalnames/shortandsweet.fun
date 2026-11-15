@@ -2,9 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 
-// TODO: replace with real payment links
 const venmoUrl = 'https://venmo.com/code?user_id=800183906467840492&created=1794753134';
-const zelleInfo = 'Coming soon';
 const email = 'hello@shortandsweet.fun';
 ---
 
@@ -34,7 +32,14 @@ const email = 'hello@shortandsweet.fun';
 
           <div class="pay-card">
             <h2>Zelle</h2>
-            <p class="zelle-info">{zelleInfo}</p>
+            <img
+              src="/zelle-qr.png"
+              alt="Zelle QR code to pay Andrew"
+              class="zelle-qr"
+              width="178"
+              height="205"
+            />
+            <p class="zelle-info">Scan this code in your bank's app to pay Andrew.</p>
           </div>
         </div>
 
@@ -118,9 +123,12 @@ const email = 'hello@shortandsweet.fun';
     text-decoration: none;
   }
 
+  .zelle-qr {
+    margin: 0 auto 0.75rem;
+  }
+
   .zelle-info {
-    font-weight: 500;
-    word-break: break-word;
+    font-size: 0.95rem;
   }
 
   .testimonial {
