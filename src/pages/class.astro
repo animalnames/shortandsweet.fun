@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+// TODO: replace with real payment links
+const venmoUrl = '#';
+const zelleInfo = 'Coming soon';
+const email = 'hello@shortandsweet.fun';
+---
+
+<BaseLayout
+  title="Paying for Class — Short & Sweet"
+  description="How to pay for your Short & Sweet improv class."
+  path="/class"
+  noindex
+>
+  <header class="class-header">
+    <a href="/" class="class-logo">Short & Sweet</a>
+  </header>
+
+  <main>
+    <section class="class-section">
+      <div class="container narrow">
+        <h1 class="section-heading">Paying for Class</h1>
+        <p class="intro">
+          Thanks for playing with us! Here's how to pay for your class.
+        </p>
+
+        <div class="pay-options">
+          <div class="pay-card">
+            <h2>Venmo</h2>
+            <a href={venmoUrl} class="pay-button" target="_blank" rel="noopener">Pay with Venmo</a>
+          </div>
+
+          <div class="pay-card">
+            <h2>Zelle</h2>
+            <p class="zelle-info">{zelleInfo}</p>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <h2>Or pay with a selfie testimonial</h2>
+          <p>
+            In lieu of paying money, you can record a short selfie video
+            telling us what you thought of the class, then send it to us. It
+            helps us more than you'd think.
+          </p>
+          <p>
+            Email your video (or a link to it) to
+            <a href={`mailto:${email}?subject=Class%20testimonial`}>{email}</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .class-header {
+    border-bottom: 2px solid var(--color-accent);
+    padding: 0.75rem 1.5rem;
+  }
+
+  .class-logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .narrow {
+    max-width: 640px;
+  }
+
+  .intro {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .pay-options {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-bottom: 3rem;
+  }
+
+  .pay-card {
+    text-align: center;
+    padding: 1.75rem 1.25rem;
+    border: 2px solid var(--color-accent);
+    border-radius: 16px;
+    background: white;
+    box-shadow: 4px 4px 0 var(--color-accent-yellow);
+  }
+
+  .pay-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pay-button {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .pay-button:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .zelle-info {
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  .testimonial {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--color-accent-yellow) 18%, transparent);
+  }
+
+  .testimonial h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-accent);
+  }
+
+  .testimonial p + p {
+    margin-top: 0.75rem;
+  }
+</style>
